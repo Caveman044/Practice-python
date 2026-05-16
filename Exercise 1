@@ -4,5 +4,5 @@
 name = input("What is your name? ")
 age = int(input("What is your age? "))
 
-years_left = 100 - age
-print(f"Hi {name}, you have {years_left} years left until you're 100 years old.")
+year = 100 - age + 2026
+print(f"Hi {name}, you will be 100 years old in {year}.")
