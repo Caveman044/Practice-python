@@ -1,39 +1,47 @@
 import random
 
 cards = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10]
-player_hand = []
 computer_hand = []
-player_blackjack = False
-win = ""
-lose = "You lose!"
+player_hand = []
+computer_total = sum(computer_hand)
+player_total = sum(player_hand)
+player_bj = False
+computer_bj = False
 
-
-# TODO Deal both user and computer a starting hand of 2 random card values.
+# Deal both user and computer a starting hand of 2 random card values.
 def deal():
     for i in range(2):
         player_hand.append(random.choice(cards))
         computer_hand.append(random.choice(cards))
-        # TODO Correct for a result of 22
 
-# test output
-deal()
-player_total = sum(player_hand)
-computer_total = sum(computer_hand)
-print(sum(computer_hand))
-print(sum(player_hand))
+# Detect when computer or user has a blackjack. (Ace + 10 value card).
+# If computer gets blackjack, then the user loses (even if the user also has a blackjack). If the user gets a blackjack, then they win (unless the computer also has a blackjack).
+def has_bj():
+    if computer_hand == [11, 10] or computer_hand == [10, 11]:
+        computer_bj = True
+        computer_wins = True
+    elif player_hand == [11, 10] or player_hand == [10, 11]:
+        player_bj = True
 
-# TODO Detect when computer or user has a blackjack. (Ace + 10 value card).
-if computer_total == 21:
-    print("dealer bj")
-elif player_total == 21:
-    print("player bj")
-
-
-# TODO If computer gets blackjack, then the user loses (even if the user also has a blackjack). If the user gets a blackjack, then they win (unless the computer also has a blackjack).
-
-# TODO Calculate the user's and computer's scores based on their card values.
 
 # TODO If an ace is drawn, count it as 11. But if the total goes over 21, count the ace as 1 instead.
+def check_for_ace():
+    if computer_total == 22:
+        computer_hand[0] = 1
+    if player_total == 22:
+        player_hand[0] = 1
+
+deal()
+check_for_ace()
+has_bj()
+
+
+# Calculate the user's and computer's scores based on their card values.
+
+
+# Test Output
+print(f"Computer: {computer_hand}, {computer_total}, {computer_bj}")
+print(f"Player:   {player_hand}, {player_total}, {player_bj}")
 
 # TODO Reveal computer's first card to the user.
 
